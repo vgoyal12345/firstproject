@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Overview</title>
+    <meta charset="utf-8">
+
+    <link href="https://kendo.cdn.telerik.com/2021.2.511/styles/kendo.common.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2021.2.511/styles/kendo.default.min.css" rel="stylesheet" />
+    <link href="https://kendo.cdn.telerik.com/2021.2.511/styles/kendo.default.mobile.min.css" rel="stylesheet" />
+
+    <script src="https://kendo.cdn.telerik.com/2021.2.511/js/jquery.min.js"></script>
+
+    <script src="https://kendo.cdn.telerik.com/2021.2.511/js/kendo.all.min.js"></script>
+
+</head>
+
+<body>
+
+        <div id="mygrid"></div>
+        <script>
+           
+            // Remote Datasource
+            var mydatasource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        contentType: 'application/json',
+                      type: "GET",
+                        dataType: "json",
+                        url: "https://i-accountsapiwithinsertnget-fuse-online.apps.cluster-cb66.cb66.sandbox1596.opentlc.com/getallaccounts",
+                                                              
+                    },
+                    create: {
+                        url: "https://i-accountsapiwithinsertnget-user1-fuse.apps.cluster-frsc8.frsc8.sandbox861.opentlc.com/insertaccount/",
+                        dataType: "json",
+                        type: "POST"
+                    },
+                    destroy: 
+                    {
+                        url:"https://i-deleteaccountapi-user1-fuse.apps.cluster-frsc8.frsc8.sandbox861.opentlc.com/deleteaccount?accountid=1",
+                        dataType: "json"
+                    }
+
+                },
+                // schema: {
+                //     //type:"json",
+                //     //data: "",
+                //     model: {
+                //         id: "accountid",
+                //         fields: {
+                //             name: { type: "string" },
+                //             accountnumber: { type: "string" },
+                //             address: { type: "string" },
+                //             accounttype: { type: "string" },
+                //             accountid: {type:"string"},
+                //             currentbalance: {type:"string"},
+                //             loyaltypoints: {type:"string"}
+
+                //         }
+                //     }
+                // }
+            });
+
+            $(document).ready(function () {
+                $("#mygrid").kendoGrid({
+                    editable: "inline",
+                    toolbar: ["create"],
+                    dataSource: mydatasource,
+                    schema: {
+                    model: {
+                        id: "accountid",
+                        fields: {
+                            name: { type: "string" },
+                            accountnumber: { type: "string" },
+                            address: { type: "string" },
+                            accounttype: { type: "string" },
+                            accountid: {type:"string"},
+                            currentbalance: {type:"string"},
+                            loyaltypoints: {type:"string"}
+
+                        }
+                    }
+                },
+                
+                    height: 550,
+                    // filterable: true,
+                    sortable: true,
+                    pageable: true,
+                    columns: [
+                        { field: "accountid", title: "ID"},
+                        { field: "name", title: "Name" },
+                        { field: "accountumber", title: "Account Number" },
+                        { field: "address", title: "Address" },
+                       { field: "accounttype", title: "Account Type" },
+                       { field: "currentbalance", title: "Balance"},
+                       { field: "loyaltypoints", title: "Loyalty Points"}
+                    ]
+                });
+               
+            });
+        </script>
+
+</body>
+
+</html>
